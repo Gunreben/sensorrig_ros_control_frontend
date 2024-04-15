@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [recording, setRecording] = useState(false);
+
+  const toggleRecording = () => {
+    setRecording(!recording);
+    // Call the API to start/stop recording
+    fetch(`http://192.168.26.4:5000/${recording ? 'stop' : 'start'}`, {
+      method: 'POST'
+    });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button onClick={toggleRecording}>
+          {recording ? 'Stop Recording' : 'Start Recording'}
+        </button>
       </header>
     </div>
   );
 }
 
 export default App;
+
