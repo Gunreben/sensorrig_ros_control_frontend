@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+
 function App() {
   const [recording, setRecording] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
@@ -26,7 +27,7 @@ function App() {
 
   useEffect(() => {
     const imageFetchInterval = setInterval(() => {
-      fetch('http://192.168.26.4:5000/latest-image')
+      fetch('http://192.168.26.70:8554/jpeg')
         .then(response => response.blob())
         .then(imageBlob => {
           const imageObjectURL = URL.createObjectURL(imageBlob);
@@ -42,7 +43,8 @@ function App() {
       <header className="App-header">
         <h1>ROS Image Viewer</h1>
         <div>
-          <img src={imageSrc} alt="Camera feed" />
+            <h1>Live Image Feed</h1>
+            <img src="http://192.168.26.74:81/" alt="Not available. Only working if camera in http mode." />
         </div>
         <button onClick={toggleRecording}>
           {recording ? 'Stop Recording' : 'Start Recording'}
