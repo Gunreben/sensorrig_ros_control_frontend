@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-
 function App() {
   const [recording, setRecording] = useState(false);
-  const [imageSrc, setImageSrc] = useState('');
   const [diskSpace, setDiskSpace] = useState({ total: 0, used: 0, free: 0 });
   const [diskPath, setDiskPath] = useState('/mnt');
+  const cameraIPs = ['192.168.26.70', '192.168.26.71', '192.168.26.72', '192.168.26.73', '192.168.26.74', '192.168.26.75'];
 
   const toggleRecording = () => {
     const action = recording ? 'stop' : 'start';
@@ -21,35 +20,29 @@ function App() {
         .then(response => response.json())
         .then(data => setDiskSpace(data))
         .catch(error => console.error('Error fetching disk space:', error));
-    }, 1000);  // fetch disk space every second
+    }, 1000);
     return () => clearInterval(intervalId);
   }, [diskPath]);
-
-  useEffect(() => {
-    const imageFetchInterval = setInterval(() => {
-      fetch('http://192.168.26.70:8554/jpeg')
-        .then(response => response.blob())
-        .then(imageBlob => {
-          const imageObjectURL = URL.createObjectURL(imageBlob);
-          setImageSrc(imageObjectURL);
-        })
-        .catch(error => console.error('Error fetching image:', error));
-    }, 1000);  // fetch image every second
-    return () => clearInterval(imageFetchInterval);
-  }, []);
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>ROS Image Viewer</h1>
-        <div>
-            <h1>Live Image Feed</h1>
-            <img src="http://192.168.26.74:81/" alt="Not available. Only working if camera in http mode." />
-        </div>
-        <button onClick={toggleRecording}>
+        <button
+          className={`record-button ${recording ? 'recording' : ''}`}
+          onClick={toggleRecording}
+        >
           {recording ? 'Stop Recording' : 'Start Recording'}
         </button>
-        <div>
+        <div className="camera-grid">
+          {cameraIPs.map(ip => (
+            <div key={ip} className="camera-feed">
+              <h2>Camera {ip.slice(-2)}</h2>
+              <img src={`http://${ip}:81/`} alt={`Camera feed from ${ip} not available`} />
+            </div>
+          ))}
+        </div>
+        <div className="disk-space">
           <h3>Disk Space:</h3>
           <div>Total: {diskSpace.total} GB, Used: {diskSpace.used} GB, Free: {diskSpace.free} GB</div>
         </div>
@@ -59,3 +52,4 @@ function App() {
 }
 
 export default App;
+

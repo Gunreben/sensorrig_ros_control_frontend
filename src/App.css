@@ -1,52 +1,72 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: center;
+  color: #fff;
+  background-color: #333;
+  padding: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.camera-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
 }
 
-img {
-  width: 720px;
+.camera-feed {
+  border: 2px solid #555;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: #222;
+}
+
+.camera-feed img {
+  width: 100%;
   height: auto;
-  margin: 10px;
+  border-radius: 5px;
+}
+
+.disk-space {
+  margin-top: 20px;
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 button {
-  margin: 5px;
-  padding: 10px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
   font-size: 16px;
+  margin: 10px 2px;
   cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.record-button {
+  background-color: #4CAF50;  /* Green when not recording */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s;
+}
+
+.record-button.recording {
+  background-color: #ff4136;  /* Red when recording */
 }
 
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
