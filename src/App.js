@@ -10,6 +10,7 @@ function App() {
       <div className="App">
         <nav className="nav-bar">
           <Link to="/">Viewer</Link>
+          <Link to="/lights">Licht</Link>
           <Link to="/debug">Debug</Link>
         </nav>
         <Routes>
